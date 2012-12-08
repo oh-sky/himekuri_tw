@@ -100,4 +100,19 @@ class CalendarsController extends AppController {
 		$this->Session->setFlash(__('Calendar was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+  /**
+   * showimage
+   */
+  public function showimage($date = null){
+    $this->layout = false;
+    $options = array('conditions'=>array('Calendar.date'=>$date));
+    $data = $this->Calendar->find('first',$options);
+    if($data){
+      header('Content-type: image/jpeg');
+      echo $data['Calendar']['image'];
+    }else{
+      $this->cakeError('error404');
+    }
+  }
 }
