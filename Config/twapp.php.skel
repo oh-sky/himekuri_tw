@@ -1,0 +1,11 @@
+<?php
+/**
+ * himekuri_tw settings
+ *
+ * Set params and rename to 'twapp.php'
+ */
+
+$config['twapp_consumer_key'] = 'SET_YOUR_APP\'S_CONSUMER_KEY';
+$config['twapp_consumer_secret'] = 'SET_YOUR_APP\'S_CONSUMER_SECRET';
+$config['twapp_access_token'] = 'SET_ACCESS_TOKEN_OF_YOUR_ACCOUNT';
+$config['twapp_access_secret'] = 'SET_ACCESS_SECRET_OF_YOUR_ACCOUNT';
