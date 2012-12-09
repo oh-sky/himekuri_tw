@@ -242,7 +242,7 @@ class TwitterOAuth {
     }
     return strlen($header);
   }
-}
+
   /**
    *  Image Post
    */
@@ -263,3 +263,4 @@ class TwitterOAuth {
     }
     return $response;
   }
+}
