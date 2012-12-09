@@ -11,6 +11,8 @@ class CalendarShell extends AppShell {
       $date = date('Y-m-d');
     }
 
+    list($the_year,$the_month,$the_day) = preg_split('/-/',$date);
+
     Configure::load('twapp.php');
     $twapp_consumer_key = Configure::read('twapp_consumer_key');
     $twapp_consumer_secret = Configure::read('twapp_consumer_secret');
@@ -26,7 +28,7 @@ class CalendarShell extends AppShell {
       $to = new TwitterOAuth($twapp_consumer_key,$twapp_consumer_secret,$twapp_access_token,$twapp_access_secret);
 
       //画像とメッセージをtwitterに投稿
-      $status = array('status'=>"{$data['Calendar']['message']} by {$data['Author']['name']}".rand(),
+      $status = array('status'=>"{$the_year}年{$the_month}月{$the_day}日「{$data['Calendar']['message']}」 by {$data['Author']['name']}".rand(),
                       'media[]'=>$data['Calendar']['image']
       );
       $res = $to->postImg('https://api.twitter.com/1.1/statuses/update_with_media.json',$status);
