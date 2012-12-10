@@ -28,3 +28,8 @@
     0 8 * * * /path/to/cake/app/Console/cake calendar post_tweet
 
 と登録しておけば毎朝8時に投稿されます
+
+### 注意
+
+httpdを実行しているユーザとcronでスクリプトを叩くユーザが違うとtmp以下のファイルがアレする場合があるので、そのときは
+`chmod -R a+w /path/to/cake/app/tmp` などとする。
