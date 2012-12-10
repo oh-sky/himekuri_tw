@@ -14,3 +14,11 @@ CREATE  TABLE IF NOT EXISTS `calendars` (
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `date_unique` (`date` ASC) )
 ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `tweets` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `json` TEXT NULL DEFAULT NULL ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;

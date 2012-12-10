@@ -2,7 +2,7 @@
 App::import('Vendor','twitteroauth');
 
 class CalendarShell extends AppShell {
-  public $uses = array('Calendar','Author');
+  public $uses = array('Calendar','Author','Tweet');
 
   public function post_tweet($date = null){
     
@@ -33,9 +33,21 @@ class CalendarShell extends AppShell {
       );
       $res = $to->postImg('https://api.twitter.com/1.1/statuses/update_with_media.json',$status);
 
-      //コメントを投稿
-      $status = array('status'=>"{$data['Calendar']['comment']} https://twitter.com/{$res->user->screen_name}/status/{$res->id} ".rand());
-      $res2 = $to->OAuthRequest('https://api.twitter.com/1.1/statuses/update.json','POST',$status);
+      if($res){
+
+        //TwitterAPIのレスポンスをDBに保存
+        $this->Tweet->create();
+        $this->Tweet->save(array('Tweet'=>array('json'=>json_encode($res))));
+
+        //コメントを投稿
+        $status = array('status'=>"{$data['Calendar']['comment']} https://twitter.com/{$res->user->screen_name}/status/{$res->id} ".rand());
+        $res2 = $to->OAuthRequest('https://api.twitter.com/1.1/statuses/update.json','POST',$status);
+        if($res2){
+          //TwitterAPIのレスポンスをDBに保存
+          $this->Tweet->create();
+          $this->Tweet->save(array('Tweet'=>array('json'=>json_encode($res2))));
+        }
+      }
 
     }
 
