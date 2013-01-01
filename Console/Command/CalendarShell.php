@@ -28,7 +28,7 @@ class CalendarShell extends AppShell {
       $to = new TwitterOAuth($twapp_consumer_key,$twapp_consumer_secret,$twapp_access_token,$twapp_access_secret);
 
       //画像とメッセージをtwitterに投稿
-      $status = array('status'=>"{$the_year}年{$the_month}月{$the_day}日「{$data['Calendar']['message']}」 by {$data['Author']['name']}".rand(),
+      $status = array('status'=>"{$the_year}年{$the_month}月{$the_day}日「{$data['Calendar']['message']}」 by {$data['Author']['name']}",
                       'media[]'=>$data['Calendar']['image']
       );
       $res = $to->postImg('https://api.twitter.com/1.1/statuses/update_with_media.json',$status);
@@ -40,7 +40,7 @@ class CalendarShell extends AppShell {
         $this->Tweet->save(array('Tweet'=>array('json'=>json_encode($res))));
 
         //コメントを投稿
-        $status = array('status'=>"{$data['Calendar']['comment']} https://twitter.com/{$res->user->screen_name}/status/{$res->id} ".rand());
+        $status = array('status'=>"{$data['Calendar']['comment']} https://twitter.com/{$res->user->screen_name}/status/{$res->id} ");
         $res2 = $to->OAuthRequest('https://api.twitter.com/1.1/statuses/update.json','POST',$status);
         if($res2){
           //TwitterAPIのレスポンスをDBに保存
